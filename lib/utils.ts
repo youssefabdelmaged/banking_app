@@ -2,6 +2,7 @@
 import { type ClassValue, clsx } from "clsx";
 import qs from "query-string";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -193,3 +194,30 @@ export const getTransactionStatus = (date: Date) => {
 
   return date > twoDaysAgo ? "Processing" : "Success";
 };
+
+export const authformSchema = (type: string) =>
+  z.object({
+    // sign up
+    firstName: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    lastName: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    address1: type === "sign-in" ? z.string().optional() : z.string().max(50),
+    city: type === "sign-in" ? z.string().optional() : z.string().max(50),
+    state:
+      type === "sign-in" ? z.string().optional() : z.string().min(2).max(10),
+    postalCode:
+      type === "sign-in" ? z.string().optional() : z.string().min(3).max(6),
+    dateOfBirth: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    ssn: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    // both
+    email: z.string().email(),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters long")
+      .regex(/[A-Z]/, "Password must include at least one uppercase letter")
+      .regex(/[a-z]/, "Password must include at least one lowercase letter")
+      .regex(/[0-9]/, "Password must include at least one number")
+      .regex(
+        /[@$!%*?&]/,
+        "Password must include at least one special character (@, $, !, %, *, ?, &)"
+      ),
+  });

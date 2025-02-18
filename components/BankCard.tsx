@@ -9,9 +9,7 @@ const BankCard = ({ account, userName, showBalance }: CreditCardProps) => {
       <Link href="/" className="bank-card">
         <div className="bank-card_content">
           <div>
-            <h1 className="text-16 font-semibold text-white ">
-              {account.name || userName}
-            </h1>
+            <h1 className="text-16 font-semibold text-white ">{userName}</h1>
             <p className="font-ibm-plex-serif font-black text-white">
               {formatAmount(account.currentBalance)}
             </p>
@@ -23,17 +21,12 @@ const BankCard = ({ account, userName, showBalance }: CreditCardProps) => {
               <h2 className="text-12 font-semibold  text-white ">●● / ●●</h2>
             </div>
             <p className="text-14 font-semibold tracking-[1.1px] text-white">
-            ●●●● ●●●● ●●●● <span>{account.mask}1234</span>
+              ●●●● ●●●● ●●●● <span>{account.mask}1234</span>
             </p>
           </article>
         </div>
         <div className="bank-card_icon">
-          <Image
-            src="/icons/Paypass.svg"
-            width={20}
-            height={24}
-            alt="pay"
-          />
+          <Image src="/icons/Paypass.svg" width={20} height={24} alt="pay" />
           <Image
             width={45}
             height={32}
@@ -42,7 +35,13 @@ const BankCard = ({ account, userName, showBalance }: CreditCardProps) => {
             className="ml-5"
           />
         </div>
-        <Image src="/icons/lines.png" width={316} height={190} className="absolute left-0 top-0" alt="linea"/>
+        <Image
+          src="/icons/lines.png"
+          width={316}
+          height={190}
+          className="absolute left-0 top-0"
+          alt="linea"
+        />
       </Link>
     </div>
   );
